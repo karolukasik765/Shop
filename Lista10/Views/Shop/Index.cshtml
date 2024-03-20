@@ -1,0 +1,41 @@
+﻿@model (List<Lista10.Models.Article> Articles, List<Lista10.Models.Category> Categories)
+
+<h1>Shop - All categories</h1>
+<ul id="menu">
+    <li class="nav-item">
+        <a class="nav-link active" asp-action="Index" asp-route-id="">All categories</a>
+    </li>
+    @foreach (var item in Model.Categories)
+    {
+        <li class="nav-item">
+            <a class="nav-link active" asp-action="Category" asp-route-id="@item.CategoryId">@item.CategoryName</a>
+        </li>
+    }
+</ul>
+<div class="row">
+    @foreach (var item in Model.Articles)
+    {
+        <div class="col-3">
+            <div class="card my-3 shadow" style="width: 18rem;">
+                <div class="card-img-wrapper">
+                    <img src="@(item.Image != null ? item.Image : "image/noimage.jpg")" class="card-img p-3" alt="">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ArticleName)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Price)</p>
+
+                    @{var categoryName = Model.Categories.FirstOrDefault(c => c.CategoryId == item.CategoryId)?.CategoryName;
+                      <p class="card-text">@categoryName</p>
+                    }                  
+                    <div>                       
+                        <form method="post" asp-action="AddToCart">
+                            <input type="hidden" name="artId" value="@item.ArticleId" />
+                            <button type="submit" class="btn btn-danger" >Add to cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+      
+</div>

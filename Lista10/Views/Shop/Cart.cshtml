@@ -1,0 +1,60 @@
+﻿@model (List<(Lista10.Models.Article, int)> ArticlesInCart, List<Lista10.Models.Category> Categories)
+
+<h1>Cart</h1>
+
+<div class="row">
+    @{
+        var totalCost = 0f;
+    }
+    @foreach (var (item, amount) in Model.ArticlesInCart)
+    {
+        totalCost = totalCost + ((float)item.Price * (float)amount);
+
+                <div class="col-3">
+                    <div class="card my-3 shadow" style="width: 18rem;">
+                        <div class="card-img-wrapper">
+                            <img src="@(item.Image != null ? "/" + item.Image : "/image/noimage.jpg")" class="card-img p-3" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.ArticleName)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Price) |
+                             @{var categoryName = Model.Categories.FirstOrDefault(c => c.CategoryId == item.CategoryId)?.CategoryName;
+                             @categoryName}
+                    </p>
+                             <p class="card-text">You added: @amount</p>
+
+
+                    <div class="form-container">
+                        <form method="post" asp-action="ChangeNumberOfArticles">
+                            <input type="hidden" name="artId" value="@item.ArticleId" />
+                            <input type="hidden" name="change" value="1" />
+                            <button type="submit" class="btn btn-danger add-btn">Add</button>
+                        </form>
+
+                        <form method="post" asp-action="ChangeNumberOfArticles">
+                            <input type="hidden" name="artId" value="@item.ArticleId" />
+                            <input type="hidden" name="change" value="-1" />
+                            <button type="submit" class="btn btn-danger subtract-btn">Subtract</button>
+                        </form>
+                        <form method="post" asp-action="DeleteItem">
+                            <input type="hidden" name="artId" value="@item.ArticleId" />
+                            <button type="submit" class="btn btn-danger delete-btn">Delete</button>
+                        </form>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            }
+    @if (Model.ArticlesInCart.Count() == 0)
+    {
+        <h3> Cart is empty! </h3>
+    }
+    else
+    {
+        <h3> Total cost is: @Math.Round(totalCost,2) </h3>
+    }
+
+    <form method="get" action="@Url.Action("Index", "Orders")">
+        <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
+    </form>
+</div>

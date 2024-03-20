@@ -1,0 +1,17 @@
+﻿@model Order
+
+<h2>Podsumowanie Zamówienia</h2>
+
+<h3>Dane Osobowe</h3>
+<p><strong>Imię:</strong> @Model.Name</p>
+<p><strong>Nazwisko:</strong> @Model.LastName</p>
+<p><strong>Numer telefonu:</strong> @Model.TelephoneNumber</p>
+<h3>Adres Dostawy</h3>
+<p><strong>Ulica:</strong> @Model.Street</p>
+<p><strong>Miasto:</strong> @Model.City</p>
+<p><strong>Kod Pocztowy:</strong> @Model.PostalCode</p>
+
+<h3>Sposób Płatności</h3>
+<p><strong>Wybrany Sposób Płatności:</strong> @Model.PaymentMethod</p>
+
+<a asp-controller="Shop" asp-action="Cart">Wróć do koszyka</a>

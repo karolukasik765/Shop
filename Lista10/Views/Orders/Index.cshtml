@@ -1,0 +1,95 @@
+﻿@model (List<(Lista10.Models.Article, int)> ArticlesInCart, List<Lista10.Models.Category> Categories)
+
+<h1>Your order</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Article name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var totalCost = 0f;
+        }
+        @foreach (var (item, amount) in Model.ArticlesInCart)
+        {
+            totalCost = totalCost + ((float)item.Price * (float)amount);
+            <tr>
+                <td>
+                    @item.ArticleName
+                </td>
+                <td>
+                    @Model.Categories.FirstOrDefault(c => c.CategoryId == item.CategoryId)?.CategoryName
+                </td>
+                <td>
+                    @amount
+                </td>
+                <td>
+                    @item.Price
+                </td>
+            </tr>
+        }
+            </tbody>
+</table>
+
+
+@if (Model.ArticlesInCart.Count() == 0)
+{
+    <h3> Cart is empty! </h3>
+}
+else
+{
+    <h3> Total cost is: @Math.Round(totalCost, 2) </h3>
+}
+
+<form action="/Orders/ProcessOrder" method="post">
+
+    <h4>Dane Osobowe</h4>
+    <p>
+    <label for="Name">Imię:</label>
+    <input type="text" id="Name" name="Name" required>
+    </p>
+    <p>
+    <label for="LastName">Nazwisko:</label>
+    <input type="text" id="LastName" name="LastName" required>
+    </p>
+    <p>
+    <label for="TelephoneNumber">Numer telefonu:</label>
+    <input type="text" id="TelephoneNumber" name="TelephoneNumber" required>
+    </p>
+    <h4>Adres Dostawy</h4>
+    <p>
+    <label for="Street">Ulica:</label>
+    <input type="text" id="Street" name="Street" required>
+    </p>
+    <p>
+    <label for="City">Miasto:</label>
+    <input type="text" id="City" name="City" required>
+    </p>
+    <p>
+    <label for="PostalCode">Kod Pocztowy:</label>
+    <input type="text" id="PostalCode" name="PostalCode" required>
+    </p>
+    <h4>Sposób Płatności</h4>
+    <p>
+    <label for="PaymentMethod">Wybierz sposób płatności:</label>
+    <select id="PaymentMethod" name="PaymentMethod" required>
+        <option value="creditCard">Karta Kredytowa</option>
+        <option value="paypal">PayPal</option>
+        <option value="bankTransfer">Przelew Bankowy</option>
+    </select>
+    </p>
+    <button type="submit">Złóż Zamówienie</button>
+</form>

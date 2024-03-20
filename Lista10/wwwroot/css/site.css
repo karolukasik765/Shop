@@ -1,0 +1,103 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.preview {
+    width: auto;
+    height: 200px;
+    position: relative;
+}
+
+.disabled {
+    cursor: not-allowed !important;
+    color: gray !important;
+    text-decoration: none !important;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.card {
+    height: 30rem;
+}
+
+.card-img-wrapper {
+    height: 18rem;
+    width: 18rem;
+    display: flex;
+}
+
+.card-img {
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+}
+
+.button-container {
+    display: inline-block;
+    /* Dodaj inne w³aœciwoœci stylów wed³ug potrzeb */
+}
+.form-container {
+    display: inline-block;
+}
+
+    .form-container form {
+        display: inline-block;
+        margin-right: 10px; /* Dodaj margines miêdzy formularzami wed³ug potrzeb */
+    }
+
+.add-btn {
+    background-color: #4CAF50; /* Kolor przycisku Add */
+}
+
+.subtract-btn {
+    background-color: #3498db; /* Kolor przycisku Subtract */
+}
+.delete-btn {
+    background-color: #e74c3c; /* New color for delete button */
+}
+
+#menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    right: 0;
+}
+
+    #menu li {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+        #menu li:hover {
+            background-color: #ddd;
+        }
